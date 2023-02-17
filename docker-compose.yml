@@ -1,0 +1,12 @@
+version: '3.10'
+services:
+  dev:
+    build: .
+    container_name: my-blog
+    dockerfile: Dockerfile
+    ports:
+      - "8060:3000"
+    volumes:
+      - .:/usr/src/app
+    stdin_open: true
+    tty: true
