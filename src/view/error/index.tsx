@@ -1,48 +1,52 @@
 import { Box } from "@mantine/core"
-import { selectLanguage } from "../../language"
+import { LanguageDictKey, selectLanguage } from "../../language"
 import { useState } from "react"
 import { useEffect } from "react"
 
 // 定义一个BaseError函数，接收一个字符串参数msg
 type BaseErrorProps = {
-  top: string | undefined
+  top?: string | undefined
   msg: string | undefined
-  end: string | undefined
+  end?: string | undefined
 }
-const BaseError = (props: BaseErrorProps = {
-  top: undefined,
-  msg: undefined,
-  end: undefined
-}) => {
+const BaseError = (props: BaseErrorProps) => {
   // 返回一个Box组件，其中包含msg参数
-  const lang = selectLanguage()
   const [content, setContent] = useState<string | undefined>(undefined)
-  const pk: keyof BaseErrorProps[] = ['msg']
 
   useEffect(() => {
-    const tmp = []
-    pk.forEach((item) => {
+    const tmp: string[] = []
+    const pk: string[] = ['top', 'msg', 'end']
+    const lang = selectLanguage()
+    pk.forEach((key) => {
+      const val = props[key as keyof BaseErrorProps]
+      if (val !== undefined) {
+        if (val in lang) {
+          tmp.push(lang[val as keyof typeof lang])
+        } else {
+          tmp.push(val)
+        }
+      }
     })
-  }, [props.top, props.msg, props.end])
+    setContent(tmp.join(' '))
+  }, [props.top, props.msg, props.end, props])
   return (
     <Box>
-      {msg}
+      {content}
     </Box>
   )
 }
 
-export const NotExist = (props: {name: string | undefined} = {
-  name: undefined
-}) => {
+const defaultName: LanguageDictKey = 'common.asset'
+
+
+export const NotExist = (props: {name?: string | undefined}) => {
   const lang = selectLanguage()
-  const headmsg = props.name ? props.name : lang?.['common.asset']
-  return BaseError(`${headmsg} ${lang?.['error.not_exist']}`)
+  const errkey: LanguageDictKey = 'error.not_exist'
+  return <BaseError msg={props.name ? props.name : lang[defaultName]} end={lang[errkey]} />
 }
 
-export const NotFound = (props: {name: string | undefined} = {
-  name: undefined
-}) => {
+export const NotFound = (props: {name?: string | undefined}) => {
   const lang = selectLanguage()
-  const headmsg = lang?.['common.page']
-  return BaseError(lang?.['error.not_found'])
+  const errkey: LanguageDictKey = 'error.not_found'
+  return <BaseError msg={props.name ? props.name : lang[defaultName]} end={lang[errkey]} />
 }

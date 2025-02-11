@@ -137,7 +137,7 @@ export const language = {
   "en_us": en_us,
 }
 
-export const selectLanguage = (lang: keyof typeof language | undefined = undefined) => {
+export const selectLanguage = (lang: keyof typeof language | undefined = undefined): {[key in LanguageDictKey]: string} => {
   // 没有传入语言参数，根据浏览器语言设置
   if (!lang) {
     const systemlang = navigator.language.toLowerCase()
