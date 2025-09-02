@@ -28,7 +28,7 @@ jobs:
         run: pnpm install
 
       - name: Build project
-        run: pnpm run build
+        run: pnpm run build --verbose
         # env:
         #   NODE_ENV: production  # 添加生产环境变量
 
