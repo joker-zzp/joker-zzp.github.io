@@ -7,3 +7,5 @@ export function AboutView() {
     </Box>
   )
 }
+
+export default AboutView

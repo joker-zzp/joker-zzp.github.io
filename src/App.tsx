@@ -1,21 +1,23 @@
-import { Box, Flex, Grid, MantineProvider, Text } from "@mantine/core"
+import { MantineProvider } from "@mantine/core"
 import { defaultTheme } from "./theme"
-import { useState } from "react"
-import { selectLanguage } from "./language"
+import { useEffect } from "react"
+import BasicRoute from "./router"
+import { useLocation } from "react-router-dom"
 
 function App() {
   const theme = {
     default: defaultTheme
   }
-  const [themeName, setThemeName] = useState<keyof typeof theme>("default")
-  const lang = selectLanguage()
+  // const [themeName, setThemeName] = useState<keyof typeof theme>("default")
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    console.log(pathname);
+  }, [pathname])
 
   return (
-    <MantineProvider theme={theme[themeName]}>
-      <Grid>
-        <Grid.Col span={4}>1</Grid.Col>
-        <Grid.Col span={4}>2</Grid.Col>
-      </Grid>
+    <MantineProvider theme={theme.default}>
+      <BasicRoute />
     </MantineProvider>
   )
 }

@@ -7,3 +7,5 @@ export function HomeView() {
     </Box>
   )
 }
+
+export default HomeView

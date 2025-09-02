@@ -50,3 +50,5 @@ export const NotFound = (props: {name?: string | undefined}) => {
   const errkey: LanguageDictKey = 'error.not_found'
   return <BaseError msg={props.name ? props.name : lang[defaultName]} end={lang[errkey]} />
 }
+
+export default NotFound

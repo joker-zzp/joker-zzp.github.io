@@ -6,23 +6,27 @@
       "request":"launch",
       "name":"LaunchRun vite",
       "runtimeExecutable":"vite",
-      "args": []
+      "args": [],
+      "runtimeArgs": ["--host", "--port", "3000"],
     },
     {
-      "name": "Launch Chrome against localhost",
+      "name": "Launch Chrome",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
-      "sourceMapPathOverrides": {
-          "webpack:///src/*": "${webRoot}/*"
-      },
-    }
+      "port": 9222,
+      "timeout": 50000,
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "runtimeArgs": [
+        "--remote-debugging-port=9222",
+      ],
+      "outputCapture": "console",
+    },
   ],
   "compounds": [
     {
       "name": "Debug All",
-      "configurations": ["LaunchRun vite", "Launch Chrome against localhost"],
+      "configurations": ["LaunchRun vite", "Launch Chrome"],
       "presentation": {
         "order": 1
       }
