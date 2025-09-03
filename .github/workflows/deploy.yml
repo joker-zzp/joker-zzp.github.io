@@ -18,24 +18,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # cache: 'pnpm'
-          # cache-dependency-path: 'pnpm-lock.yaml'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
 
       - name: Install pnpm
-        run: npm install -g pnpm@latest
+        run: npm install -g pnpm
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build project
-        run: pnpm run build --verbose
+        run: pnpm run build
         # env:
         #   NODE_ENV: production  # 添加生产环境变量
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
           branch: gh-pages
-          folder: dist
           clean: true
