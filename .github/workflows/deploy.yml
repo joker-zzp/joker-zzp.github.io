@@ -39,7 +39,12 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: ./dist
           branch: gh-pages
-          clean: true
+          # clean: true
+          force: true
+          commit-message: 'chore: deploy to gh-pages'
+          git-config-name: joker-zzp
+          git-config-email: joker-zzp@qq.com
+          # 其他配置...
