@@ -17,7 +17,17 @@ export default defineConfig({
     }),
   ],
   build: {
-    sourcemap: true, // 开发环境默认开启，生产环境可设为 'inline'
+    sourcemap: true,
+    outDir: 'dist',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+      },
+      output: {
+        manualChunks: undefined,
+      }
+    },
+    emptyOutDir: true,
   },
   css: {
     // 启用 CSS 源映射（开发环境）
